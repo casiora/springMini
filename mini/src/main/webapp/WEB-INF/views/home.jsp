@@ -11,6 +11,7 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 <a href="/map/map">지도</a>
+<a href="/board/list">게시판</a>
 
 
 </body>

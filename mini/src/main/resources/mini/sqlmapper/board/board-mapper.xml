@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mini.board.mapper.BoardMapper">
+
+<sql id="search">
+	<if test="searchType != null">
+		<if test="keyword !=null">
+		<if test="searchType == 't'.toString()">WHERE TITLE LIKE CONCAT('%',#{keyword},'%')</if>
+		<if test="searchType == 'c'.toString()">WHERE CONTENT LIKE CONCAT('%',#{keyword},'%')</if>
+		<if test="searchType == 'w'.toString()">WHERE WRITER LIKE CONCAT('%',#{keyword},'%')</if>
+		<if test="searchType == 'tc'.toString()">WHERE (TITLE LIKE CONCAT('%',#{keyword},'%')) or (CONTENT LIKE CONCAT('%',#{keyword},'%'))</if>
+	</if>
+	</if>
+</sql>
+
+<!-- 게시글 전체 목록 -->
+<select id ="list" parameterType="hashMap" resultType="BoardVO">
+<![CDATA[
+	SELECT R1.* FROM(
+		SELECT BNO, TITLE, WRITER, REGDATE
+		FROM BOARD
+]]>
+		<include refid="search" />
+		ORDER BY BNO DESC) R1
+		LIMIT #{startNo}, #{pageSize}
+
+</select>
+ 
+<!-- 총 게시글 숫자 카운팅 -->
+<select id="listCount" parameterType="BoardVO" resultType="int">
+	SELECT COUNT(BNO)
+	    FROM BOARD
+<include refid="search" />
+
+</select>
+
+<!-- 게시글 상세 -->
+<select id="getDetailBoard" parameterType="int" resultType="BoardVO">
+	SELECT BNO
+		,TITLE
+		,WRITER
+		,CONTENT
+		,REGDATE
+	FROM BOARD
+	WHERE BNO = #{bno}
+</select>
+
+<!-- 게시글 등럭 -->
+<insert id="insertBoard" parameterType="BoardVO">
+	INSERT INTO BOARD(
+		TITLE, WRITER, CONTENT
+	)VALUES (
+		#{title}
+		,#{writer}
+		,#{content}
+		)
+</insert>
+
+<!-- 게시글 수정 -->
+<insert id="updateBoard" parameterType="BoardVO">
+	UPDATE BOARD
+	SET 
+		TITLE = #{title}, 
+		CONTENT = #{content}
+	WHERE
+		BNO = #{bno};
+</insert>
+
+<!-- 게시글 삭제 -->
+<delete id="deleteBoard" parameterType="int">
+<![CDATA[
+	DELETE FROM BOARD WHERE BNO = #{bno}
+	]]>
+</delete>
+
+</mapper>
