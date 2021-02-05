@@ -5,9 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Study Page</title>
-<a href="/board/list.do">게시판</a>
-<a href="../index.jsp">로그인</a>
-<a href="/map/map.do">지도</a>
+<a href="/">홈 화면 바로가기</a>
+<a href="../map/map">지도</a>
+<a href="../board/list">게시판</a>
 <style>
 table, th, td { padding: 5px; }
 </style>

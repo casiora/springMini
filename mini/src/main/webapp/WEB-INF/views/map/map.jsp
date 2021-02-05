@@ -60,7 +60,8 @@
 </style>
 <title>지도</title>
 <a href="/">홈 화면 바로가기</a>
-<a href="/map/map">지도</a>
+<a href="../map/map">지도</a>
+<a href="../board/list">게시판</a>
 
 </head>
 <body>
