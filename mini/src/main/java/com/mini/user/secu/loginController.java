@@ -1,4 +1,4 @@
-package com.mini.common.Controller;
+package com.mini.user.secu;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class loginController {
 	
-	@RequestMapping(value="/secu/loginPage")
+	@RequestMapping("secu/loginPage")
 	public String page() throws Exception {
-		return "/secu/loginPage";
+		return "/user/secu/loginPage";
 	}
 	
-	@RequestMapping(value="/access_denied_page")
+	@RequestMapping("secu/access_denied_page")
 	public String accessDeinedPage() throws Exception {
-		return "/secu/access_denied_page";
+		return "/user/secu/access_denied_page";
 	}
 
 }

@@ -6,6 +6,7 @@
 	<typeAliases>
 	 	<typeAlias alias="BoardVO" type="com.mini.board.vo.BoardVO" />
 	 	<typeAlias alias="PageVO" type="com.mini.common.vo.PageVO" />
+	 	<typeAlias alias="UserVO" type="com.mini.user.vo.UserVO" />
 	 </typeAliases>
  
 </configuration>

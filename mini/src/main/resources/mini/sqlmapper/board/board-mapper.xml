@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 게시글 삭제 -->
 <delete id="deleteBoard" parameterType="int">
 <![CDATA[
-	DELETE FROM BOARD WHERE BNO = #{bno}
+	DELETE FROM BOARD WHERE bno = #{bno}
 	]]>
 </delete>
 

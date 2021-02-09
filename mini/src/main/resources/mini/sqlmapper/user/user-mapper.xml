@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mini.user.mapper.UserMapper">
+
+   <select id="selectUserById" resultType="UserVO">
+        <![CDATA[
+            SELECT
+                *
+            FROM
+                user2
+            WHERE
+                ID=#{ loginId}
+        ]]>
+    </select>
+    
+	<update id="updateFailureCount">
+        <![CDATA[
+            UPDATE
+                user
+            SET
+                FAILURE_CNT = FAILURE_CNT + 1
+            WHERE
+                ID = #{ loginId}
+        ]]>
+    </update>
+    
+	<select id="checkFailureCount" resultType="Integer">
+        <![CDATA[
+            SELECT
+                FAILURE_CNT
+            FROM
+                user
+            WHERE
+                ID=#{ loginId}
+        ]]>
+    </select>
+
+    <update id="updateUnenabled">
+		<![CDATA[
+			UPDATE
+				user
+			SET
+				ENABLED = false
+			WHERE
+				ID = #{ loginId}
+		]]>
+	</update>
+	
+	
+ </mapper>
