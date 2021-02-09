@@ -3,8 +3,9 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mini.user.mapper.UserMapper">
-
-   <select id="selectUserById" resultType="UserVO">
+	
+	<!-- 로그인할때 유저정보가져오기 -->
+    <select id="selectUserById" resultType="UserVO">
         <![CDATA[
             SELECT
                 *
@@ -15,32 +16,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ]]>
     </select>
     
+    <!-- 실패카운트 증가 -->
 	<update id="updateFailureCount">
-        <![CDATA[
             UPDATE
-                user
+                user2
             SET
-                FAILURE_CNT = FAILURE_CNT + 1
+                FAIL_CNT = FAIL_CNT + 1
             WHERE
                 ID = #{ loginId}
-        ]]>
     </update>
     
+    <!-- 실패카운트 체크 -->
 	<select id="checkFailureCount" resultType="Integer">
-        <![CDATA[
             SELECT
-                FAILURE_CNT
+                FAIL_CNT
             FROM
-                user
+                user2
             WHERE
                 ID=#{ loginId}
-        ]]>
     </select>
 
-    <update id="updateUnenabled">
+	<!-- 실패카운트 누적 시 계정 잠금 -->
+    <update id="updateDisabled">
 		<![CDATA[
 			UPDATE
-				user
+				user2
 			SET
 				ENABLED = false
 			WHERE
@@ -48,5 +48,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</update>
 	
+	<!-- 실패카운트 초기화 -->
+	<update id="resetFailureCount">
+        UPDATE
+            user2
+        SET
+            FAIL_CNT = 0
+        WHERE
+            ID = #{ loginId}
+	</update>
+
 	
  </mapper>

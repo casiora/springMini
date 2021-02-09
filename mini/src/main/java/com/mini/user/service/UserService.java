@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 	
-	public void countFailure(String username) {
+	public void updateFailureCount(String username) {
 		userMapper.updateFailureCount(username);
 	}
 	
@@ -35,8 +35,13 @@ public class UserService implements UserDetailsService {
 		return userMapper.checkFailureCount(username);
 	}
 	
-	public void disabledUsername(String username) {
+	public void updateDisabled(String username) {
 		userMapper.updateDisabled(username);
+	}
+
+	public void resetFailureCount(String username) {
+		userMapper.resetFailureCount(username);
+		
 	}
 
 }

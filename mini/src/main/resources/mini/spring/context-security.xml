@@ -22,6 +22,7 @@
 		        login-page="/secu/loginPage"
 		        default-target-url="/"
 		        authentication-failure-handler-ref="loginFailureHandler"
+		        authentication-success-handler-ref="loginSuccessHandler"
 		    />
     		 <!-- 권한 설정 -->    
 		    <security:intercept-url pattern="/member/**" access="hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')"/>
@@ -52,11 +53,16 @@
         
 	   <bean id="userService" class="com.mini.user.service.UserService"/> 
 	   <bean id="userAuthProvider" class="com.mini.user.secu.SecuAuthenticationProvider"/>   
-	   <bean id="loginFailureHandler" class="com.mini.user.secu.loginFailureHandler">
+	   <bean id="loginFailureHandler" class="com.mini.user.secu.handler.LoginFailureHandler">
 		    <property name="loginIdName" value="loginId"/>
 		    <property name="loginPwdName" value="loginPwd"/>
 		    <property name="errorMsgName" value="ERRORMSG"/>
 		    <property name="defaultFailureUrl" value="/secu/loginPage?error"/>
 		</bean>  
+		
+		<bean id="loginSuccessHandler" class="com.mini.user.secu.handler.LoginSuccessHandler">
+		    <property name="loginIdName" value="loginId"/>
+		    <property name="defaultUrl" value="/"/>
+		</bean>
  
 </beans>

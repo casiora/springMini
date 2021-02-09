@@ -12,4 +12,6 @@ public interface UserMapper {
 	public int checkFailureCount(String username);
 
 	public void updateDisabled(String username);
+
+	public void resetFailureCount(String username);
 }
