@@ -42,14 +42,14 @@ public class BoardService {
 		return paging;
 	}
 	//상세
-	public BoardVO getDetailBoard(int i) {
-		BoardVO detail = boardMapper.getDetailBoard(i);
+	public BoardVO getDetail(int i) {
+		BoardVO detail = boardMapper.getDetail(i);
 		
 		return detail;
 	}
 	//등록
-	public void insertBoard(BoardVO boardVO) {
-		boardMapper.insertBoard(boardVO);
+	public void write(BoardVO boardVO) {
+		boardMapper.write(boardVO);
 		
 	}
 	//수정

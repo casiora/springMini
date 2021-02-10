@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <!-- 게시글 상세 -->
-<select id="getDetailBoard" parameterType="int" resultType="BoardVO">
+<select id="getDetail" parameterType="int" resultType="BoardVO">
 	SELECT BNO
 		,TITLE
 		,WRITER
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <!-- 게시글 등럭 -->
-<insert id="insertBoard" parameterType="BoardVO">
+<insert id="wirte" parameterType="BoardVO">
 	INSERT INTO BOARD(
 		TITLE, WRITER, CONTENT
 	)VALUES (

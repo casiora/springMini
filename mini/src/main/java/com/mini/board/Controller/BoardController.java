@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import com.mini.board.vo.BoardVO;
 import com.mini.common.vo.PageVO;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("board")
 public class BoardController {
 	
 	@Resource(name ="boardService")
@@ -39,34 +40,22 @@ public class BoardController {
 	}
 	
 	//디테일 페이지
-	@RequestMapping(value="detailBoard", method=RequestMethod.GET)
-	public String detailBoard (BoardVO boardVO, @RequestParam(value = "page", required=false) String page,Model model) throws Exception {
+	@RequestMapping(value="detail", method=RequestMethod.GET)
+	public String detail (BoardVO boardVO, Model model) throws Exception {
 			
-				BoardVO detail = boardService.getDetailBoard(boardVO.getBno());
-				model.addAttribute("detail",detail);
-				
-				model.addAttribute("page",page); // 어디에쓰는거지? -우성
+		BoardVO detail = boardService.getDetail(boardVO.getBno());
+		model.addAttribute("detail",detail);
 
-		return "board/detailBoard";
+		return "board/detail";
 	}
 	
 	//등록
-	@RequestMapping(value="/insertBoard.do", method=RequestMethod.POST)
-	@ResponseBody
-	public String insertBoard(BoardVO boardVO) {
-		String result = "";
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String write(BoardVO boardVO) {
+			
+		boardService.write(boardVO);
 		
-		try {
-			
-			boardService.insertBoard(boardVO);
-			
-			result = "sucess";
-		} catch (Exception e) {
-			result = "fail";
-			e.printStackTrace();
-		}
-	
-	return result;
+		return "redirect:board/list";
 	}
 	
 	//수정

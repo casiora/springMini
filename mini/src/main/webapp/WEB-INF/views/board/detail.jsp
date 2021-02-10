@@ -13,112 +13,39 @@
 	$(document).ready(function(){
 		var formObj = $("form[name='frm']");
 		
+		$(".write_btn").on("click", function(){
+			formObj.attr("action", "${pageContext.request.contextPath}/board/write");
+			formObj.attr("method", "post");
+			formObj.submit();
+		})
+		
 		$(".delete_btn").on("click", function(){
-			formObj.attr("action", "${pageContext.request.contextPath}/board/delete.do");
+			formObj.attr("action", "${pageContext.request.contextPath}/board/delete");
+			formObj.attr("method", "post");
+			formObj.submit();
+		})
+		
+		$(".list_btn").on("click", function(){
+			formObj.attr("action", "${pageContext.request.contextPath}/board/list");
 			formObj.attr("method", "post");
 			formObj.submit();
 		})
 	})
-
-	function fn_update() {
-		var title = $("#title").val();
-		var writer = $("#writer").val();
-		var content = $("#content").val();
-		var bno = $("#bno").val();
-		
-		if (title == null || title == ""
-			|| title == "undefined") {
-		alert("제목을 입력하세요.");
-		return;
-		}
-		if (content == null || content == ""
-			|| content == "undefined") {
-		alert("내용을 입력하세요.");
-		return;
-		}
-		
-		var form = {
-				"title" : title,
-				"writer" : writer,
-				"content" : content,
-				"bno" : bno
-		};
-				$.ajax({
-					type : 'post'
-					,async : true
-					,url : '${pageContext.request.contextPath }/board/updateBoard.do'
-					,contentType : 'application/x-www-form-urlencoded; charset=UTF-8'
-					,data : form
-					,success : function(data) {
-						if(data == "success") {				
-							alert("저장되었습니다.");	
-							location.reload();
-						} else if(data == "fail") {
-							alert("실패하였습니다.");							
-							location.reload();
-						}
-					},
-					error : function(data, status, err) {
-						alert('서버와의 통신이 실패했습니다.');
-					}
-				});
-	}
-
-			
-
-	function fn_insert() {
-		var title = $("#title").val();
-		var writer = $("#writer").val();
-		var content = $("#content").val();
-		
-		if (title == null || title == ""
-			|| title == "undefined") {
-		alert("제목을 입력하세요.");
-		return;
-		}
-		if (content == null || content == ""
-			|| content == "undefined") {
-		alert("내용을 입력하세요.");
-		return;
-		}
-		
- 		
-	var form = {
-			"title" : title,
-			"writer" : writer,
-			"content" : content
-	};
-			$.ajax({
-				type : 'post'
-				,async : true
-				,url : '${pageContext.request.contextPath }/board/insertBoard.do'
-				,contentType : 'application/x-www-form-urlencoded; charset=UTF-8'
-				,data : form
-				,success: function (data) {  
-		        	if(data == "success"){
-		        		alert("저장되었습니다.");
-		        		 goList();
-		        	} else if(data == "fail"){
-		        		alert("실패하였습니다.");
-		        		location.reload();
-		        	}		        	
-		        }
-		        , error  : function (data, status, err) {
-		            alert('서버와의 통신이 실패했습니다.');
-		        }
-		    });
-	}
-	function fn_goList() {
-		location.href = "${pageContext.request.contextPath }/board/list.do?p=${page}";
-	}
 	
+	
+	function list(){
+			var formObj = $("form[name='frm']");
+			formObj.attr("action", "${pageContext.request.contextPath}/board/list");
+			formObj.attr("method", "post");
+			formObj.submit();
+		}
 	
 	
 </script>
 </head>
 <body>
 	<div>
-	<h2>작성</h2>
+	<h2>글쓰기</h2>
 		<div>
 			<form name="frm" role="form" method="post">
 			<input type="hidden" name="ckbox" value="${detail.bno }" />
@@ -159,14 +86,14 @@
 			<div class="buttonWrap fr">
 				<c:choose>
 					<c:when test="${detail != null and not empty detail}">
-						<button type="button" onclick="fn_update();">수정</button>
+						<button type="button" onclick="update();">수정</button>
 						<button type="submit" class="delete_btn">삭제</button>
 					</c:when>
 					<c:otherwise>
-						<button type="button" onclick="fn_insert();">저장</button>
+						<button type="submit" class="write_btn">저장</button>
 					</c:otherwise>
 				</c:choose>
-				<button type="button" onclick="fn_goList();">목록</button>
+				<button onclick="list()">목록</button>
 			</div>
 			</form>
 		</div>

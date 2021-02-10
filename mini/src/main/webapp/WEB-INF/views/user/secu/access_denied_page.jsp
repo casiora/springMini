@@ -13,7 +13,7 @@
       </div>
       <br><br>
       <div class="container text-center">
-        <a href='<c:url value="/"/>' class="text-dark"><i class="fas fa-undo"></i></a>
+        <a href='<c:url value="/"/>' class="text-dark">홈으로 이동<i class="fas fa-undo"></i></a>
       </div>
 </body>
 </html>

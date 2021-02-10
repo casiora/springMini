@@ -14,13 +14,9 @@ table, th, td { padding: 5px; }
 <script type="text/javascript">
 	function fn_search(){
 		var form = document.getElementById("frm");
-		form.action="${pageContext.request.contextPath}/board/list.do";
+		form.action="${pageContext.request.contextPath}/board/list";
 		form.submit();
 	}
-	function fn_detail() { 
-		location.href = "${pageContext.request.contextPath}/board/detailBoard.do",{'page':'${paging.currentPage}'};
-	}
-	
  	//전체 체크박스 체크 시 액션
 	$(function(){
 		$("#allCheckbox").click(function(){
@@ -41,8 +37,13 @@ table, th, td { padding: 5px; }
 	$(document).ready(function(){
 		var formObj = $("form[id='frm']");
 		
+		$(".detail_btn").on("click", function(){
+			formObj.attr("action", "${pageContext.request.contextPath}/board/detail");
+			formObj.attr("method", "get");
+		})
+		
 		$(".delete_btn").on("click", function(){
-			formObj.attr("action", "${pageContext.request.contextPath}/board/delete.do");
+			formObj.attr("action", "${pageContext.request.contextPath}/board/delete");
 			formObj.attr("method", "post");
 			formObj.submit();
 		})
@@ -68,7 +69,7 @@ table, th, td { padding: 5px; }
 						<tr>
 							<td><input type="checkbox" name="ckbox" id="ckbox" value="${list.bno}"/></td>
 							<td><c:out value="${list.bno}"/></td>
-							<td><a href="/board/detailBoard.do?bno=${list.bno}"><c:out value="${list.title}" /></a></td>
+							<td><a href="/board/detail?bno=${list.bno}"><c:out value="${list.title}" /></a></td>
 							<td><c:out value="${list.writer}" /></td>
 							<td><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></td>
 						</tr>
@@ -97,7 +98,7 @@ table, th, td { padding: 5px; }
 			<table>
 			<tr>
 				<td>
-				<button type="button" onclick="fn_detail();">글쓰기</button>
+				<button type="submit" class="detail_btn">글쓰기</button>
 				<button type="submit" class="delete_btn">삭제</button>
 				</td>
 			</tr>	
