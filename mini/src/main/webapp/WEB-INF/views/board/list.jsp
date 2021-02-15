@@ -102,7 +102,8 @@ table, th, td { padding: 5px; }
 				<button type="submit" class="delete_btn">삭제</button>
 				</td>
 			</tr>	
-			</table>				
+			</table>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">				
 			</form>
 			</section>
 	</body>

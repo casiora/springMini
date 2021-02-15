@@ -53,8 +53,8 @@ public class BoardService {
 		
 	}
 	//수정
-	public void updateBoard(BoardVO boardVO) {
-		boardMapper.updateBoard(boardVO);
+	public void update(BoardVO boardVO) {
+		boardMapper.update(boardVO);
 		
 	}
 	

@@ -13,7 +13,7 @@ public interface BoardMapper {
 	public int listCount(BoardVO boardVO);
 	public BoardVO getDetail(int i);
 	public void write(BoardVO boardVO);
-	public void updateBoard(BoardVO boardVO);
+	public void update(BoardVO boardVO);
 	public void deleteBoard(int i);
 
 }

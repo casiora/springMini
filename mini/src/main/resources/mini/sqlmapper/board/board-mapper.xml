@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <!-- 게시글 등럭 -->
-<insert id="wirte" parameterType="BoardVO">
+<insert id="write" parameterType="BoardVO">
 	INSERT INTO BOARD(
 		TITLE, WRITER, CONTENT
 	)VALUES (
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </insert>
 
 <!-- 게시글 수정 -->
-<insert id="updateBoard" parameterType="BoardVO">
+<insert id="update" parameterType="BoardVO">
 	UPDATE BOARD
 	SET 
 		TITLE = #{title}, 

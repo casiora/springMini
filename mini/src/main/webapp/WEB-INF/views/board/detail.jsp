@@ -19,6 +19,12 @@
 			formObj.submit();
 		})
 		
+		$(".update_btn").on("click", function(){
+			formObj.attr("action", "${pageContext.request.contextPath}/board/update");
+			formObj.attr("method", "post");
+			formObj.submit();
+		})
+		
 		$(".delete_btn").on("click", function(){
 			formObj.attr("action", "${pageContext.request.contextPath}/board/delete");
 			formObj.attr("method", "post");
@@ -31,14 +37,6 @@
 			formObj.submit();
 		})
 	})
-	
-	
-	function list(){
-			var formObj = $("form[name='frm']");
-			formObj.attr("action", "${pageContext.request.contextPath}/board/list");
-			formObj.attr("method", "post");
-			formObj.submit();
-		}
 	
 	
 </script>
@@ -86,15 +84,16 @@
 			<div class="buttonWrap fr">
 				<c:choose>
 					<c:when test="${detail != null and not empty detail}">
-						<button type="button" onclick="update();">수정</button>
+						<button type="submit" class="update_btn">수정</button>
 						<button type="submit" class="delete_btn">삭제</button>
 					</c:when>
 					<c:otherwise>
 						<button type="submit" class="write_btn">저장</button>
 					</c:otherwise>
 				</c:choose>
-				<button onclick="list()">목록</button>
-			</div>
+				<button type="submit" class="list_btn">목록</button>
+			</div>			
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		</div>
 	</div>

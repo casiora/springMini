@@ -50,31 +50,21 @@ public class BoardController {
 	}
 	
 	//등록
-	@RequestMapping(value="/write", method=RequestMethod.POST)
+	@RequestMapping(value="write", method=RequestMethod.POST)
 	public String write(BoardVO boardVO) {
 			
 		boardService.write(boardVO);
 		
-		return "redirect:board/list";
+		return "redirect:../board/list";
 	}
 	
 	//수정
-	@RequestMapping(value="/updateBoard.do", method=RequestMethod.POST)
-	@ResponseBody
-	public String updateBoard(BoardVO boardVO) {
-		String result = "";
-			
-		try {
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String update(BoardVO boardVO) {
+
+			boardService.update(boardVO);
 				
-			boardService.updateBoard(boardVO);
-				
-			result = "sucess";
-		} catch (Exception e) {
-			result = "fail";
-			e.printStackTrace();
-		}
-		
-	return result;
+			return "redirect:../board/list";
 	}
 	
 	
@@ -83,6 +73,6 @@ public class BoardController {
 
 			for(Integer i: ids) boardService.deleteBoard(i);
 	
-		return "redirect:/board/list.do";
+		return "redirect:/board/list";
 	}
 }
