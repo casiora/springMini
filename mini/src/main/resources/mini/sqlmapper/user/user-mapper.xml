@@ -57,6 +57,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE
             ID = #{ loginId}
 	</update>
+	
+	<insert id="signID" parameterType="UserVO">
+		INSERT INTO USER2(
+		ID, PASSWORD, NAME
+		)VALUES (
+		#{ID}
+		,#{PASSWORD}
+		,#{NAME}
+		)
+		
+	
+	</insert>
 
 	
  </mapper>

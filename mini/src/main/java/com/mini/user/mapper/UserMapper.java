@@ -14,4 +14,6 @@ public interface UserMapper {
 	public void updateDisabled(String username);
 
 	public void resetFailureCount(String username);
+	
+	public void signID(UserVO userVo);
 }

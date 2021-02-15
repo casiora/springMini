@@ -43,5 +43,9 @@ public class UserService implements UserDetailsService {
 		userMapper.resetFailureCount(username);
 		
 	}
+	
+	public void signID(UserVO userVO) {
+		userMapper.signID(userVO);
+	}
 
 }
