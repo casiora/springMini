@@ -2,9 +2,11 @@ package com.mini.user.service;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mini.user.mapper.UserMapper;
@@ -15,6 +17,9 @@ public class UserService implements UserDetailsService {
 	
 	@Resource(name="userMapper")
 	private UserMapper userMapper;
+	
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,8 +49,16 @@ public class UserService implements UserDetailsService {
 		
 	}
 	
-	public void signID(UserVO userVO) {
-		userMapper.signID(userVO);
+	public boolean signID(UserVO userVo) {
+		
+		Integer userCount = userMapper.idChk(userVo.getID());		
+		if(userCount > 0) {
+			return false;
+		} else {
+			userVo.setPASSWORD(pwEncoder.encode(userVo.getPassword()));
+			userMapper.signID(userVo);
+			return true;			
+		}							
 	}
 
 }

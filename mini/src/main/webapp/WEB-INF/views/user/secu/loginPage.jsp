@@ -28,7 +28,6 @@
 			    <font color="red">
 			        <p>Your login attempt was not successful due to <br/>
 			         ${ERRORMSG }</p>
-			        <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session"/>
 			    </font>
 			 </c:if>
 	          
@@ -42,8 +41,12 @@
 	         	 <button type="submit" class="btn btn-primary">Sign in</button>
 	      </form>
 	      <div class="dropdown-divider"></div>
-		      <a class="dropdown-item" href="../user/signPage">New around here? Sign up</a>
+		      <a class="dropdown-item" href="/user/signPage">New around here? Sign up</a>
 		      <a class="dropdown-item" href="#">Forgot password?</a>
+		      
+  		<div class="container text-center">
+        	<a href='<c:url value="/"/>' class="text-dark">홈으로 이동<i class="fas fa-undo"></i></a>
+    	</div>		    
 	  </div>
 
 </body>

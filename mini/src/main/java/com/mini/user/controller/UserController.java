@@ -1,5 +1,7 @@
 package com.mini.user.controller;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,13 +25,14 @@ public class UserController {
 	
 	//회원가입 페이지
 	@RequestMapping(value="signPage")
-	public String signPage(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public String signPage() throws Exception {
 		
 		logger.info("signPage");
 
 		return "user/sign";
 	}
 	
+	//회원가입
 	@RequestMapping(value="sign")
 	public String sign(UserVO userVO) throws Exception {
 		
@@ -37,6 +40,24 @@ public class UserController {
 		
 		userService.signID(userVO);
 
+		return "redirect:/secu/loginPage";
+	}
+	
+	//로그인페이지 호출
+	@RequestMapping("secu/loginPage")
+	public String page() throws Exception {
+		return "/user/secu/loginPage";
+	}
+	
+	//권한거부 페이지 호출
+	@RequestMapping("secu/access_denied_page")
+	public String accessDeinedPage() throws Exception {
+		return "/user/secu/access_denied_page";
+	}
+	
+	//로그인
+	@RequestMapping(value = "/login")
+	public String login(HttpServletRequest req, HttpServletResponse res) throws IOException{
 		return "redirect:/";
 	}
 

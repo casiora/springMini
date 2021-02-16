@@ -101,10 +101,6 @@ public class UserVO implements UserDetails {
 		ID = iD;
 	}
 
-	public String getPASSWORD() {
-		return PASSWORD;
-	}
-
 	public void setPASSWORD(String pASSWORD) {
 		PASSWORD = pASSWORD;
 	}

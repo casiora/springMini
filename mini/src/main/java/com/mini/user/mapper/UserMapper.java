@@ -16,4 +16,6 @@ public interface UserMapper {
 	public void resetFailureCount(String username);
 	
 	public void signID(UserVO userVo);
+	
+	public int idChk(String username);
 }

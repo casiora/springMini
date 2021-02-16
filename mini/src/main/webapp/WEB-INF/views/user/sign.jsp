@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>등록</title>
-<a href="/">홈 화면 바로가기</a>
 <script type="text/javascript">
 	$(document).ready(function(){
 		var formObj = $("form[name='frm']");
@@ -19,7 +18,7 @@
 		})
 		
 		$(".cancel_btn").on("click", function(){
-			formObj.attr("action", "/");
+			formObj.attr("action", "${pageContext.request.contextPath}/user/secu/loginPage");
 			formObj.attr("method", "post");
 			formObj.submit();
 		})
@@ -52,13 +51,14 @@
 				</tr>
 			</tbody>
 			</table>
+			 <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 			<div class="buttonWrap fr">
 				<button type="submit" class="sign_btn">회원가입</button>
 				<button type="submit" class="cancel_btn">취소</button>
 			</div>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		</div>
+
 	</div>
 </body>
 </html>

@@ -25,7 +25,7 @@
 
 <div class="container text-center">
          <sec:authorize access="isAnonymous()">
-         	<h5><a href='<c:url value="/secu/loginPage"/>' class="badge badge-pill badge-info">LOGIN</a> 로그인 해주세요.</h5>
+         	<h5><a href='<c:url value="/user/secu/loginPage"/>' class="badge badge-pill badge-info">LOGIN</a> 로그인 해주세요.</h5>
          </sec:authorize>
  		 <sec:authorize access="isAuthenticated()">
  		    <h5><%=name %>님, 반갑습니다.</h5>

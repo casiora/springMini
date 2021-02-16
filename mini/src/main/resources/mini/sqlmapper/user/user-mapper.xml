@@ -66,9 +66,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,#{PASSWORD}
 		,#{NAME}
 		)
-		
-	
 	</insert>
+	
+	<!--id중복체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*)
+		FROM USER2
+		WHERE ID= #{ID}	
+	</select>
 
 	
  </mapper>
