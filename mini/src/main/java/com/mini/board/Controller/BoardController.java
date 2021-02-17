@@ -69,9 +69,12 @@ public class BoardController {
 	
 	//수정
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(BoardVO boardVO) {
+	public String update(BoardVO boardVO,
+						@RequestParam(value="fileNoDel[]") String[] files, 
+						@RequestParam(value="fileNameDel[]")String[] fileNames, 
+						MultipartHttpServletRequest mpReq) throws Exception {
 
-		boardService.update(boardVO);
+		boardService.update(boardVO, files, fileNames, mpReq);
 				
 		return "redirect:../board/list";
 	}

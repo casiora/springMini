@@ -68,8 +68,20 @@ public class BoardService {
 	}
 	
 	//수정
-	public void update(BoardVO boardVO) {
+	public void update(BoardVO boardVO, String[] files, String[] fileNames, MultipartHttpServletRequest mpReq) throws Exception {
 		boardMapper.update(boardVO);
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(boardVO, files, fileNames, mpReq);
+		Map<String, Object> tempMap = null;
+		int size = list.size();
+		for(int i=0; i<size; i++) {
+			tempMap = list.get(i);
+			if(tempMap.get("IS_NEW").equals("Y")) {
+				boardMapper.insertFile(tempMap); //다수 추가
+			} else {
+				boardMapper.deleteFile(tempMap); //삭제
+			}			
+		}
 		
 	}
 	

@@ -92,24 +92,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </insert>
     
     
-    <select id="selectFileList" parameterType="int" resultType="hashMap" >
-    	SELECT FILE_NO,
-    		   ORG_FILENM,
-    		   ROUND(FILESIZE/1024, 1) AS FILESIZE
-	   	FROM   FILEUPLOAD
-	   	WHERE  BNO = #{BNO}	
-       
-    </select>
+ <select id="selectFileList" parameterType="int" resultType="hashMap" >
+ 	SELECT FILE_NO,
+ 		   ORG_FILENM,
+ 		   ROUND(FILESIZE/1024, 1) AS FILESIZE
+ 	FROM   FILEUPLOAD
+ 	WHERE  BNO = #{BNO}	
     
-    <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
-    	SELECT 
-    		ORG_FILENM,
-    		MASK_FILENM
-    	FROM FILEUPLOAD
-    	WHERE FILE_NO = #{FILE_NO}
-    	
-    
-    </select>
+ </select>
+ 
+ <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+ 	SELECT 
+ 		ORG_FILENM,
+ 		MASK_FILENM
+ 	FROM FILEUPLOAD
+ 	WHERE FILE_NO = #{FILE_NO}
+ 	
+ 
+ </select>
+ 
+ <delete id="deleteFile" parameterType="hashMap">
+ 	DELETE 
+ 	FROM
+ 		FILEUPLOAD 
+ 	WHERE 
+ 	 	FILE_NO = #{FILE_NO}
+ 
+ </delete>
     
 
 </mapper>

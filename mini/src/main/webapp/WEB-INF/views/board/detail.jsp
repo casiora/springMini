@@ -14,6 +14,12 @@
 	$(document).ready(function(){
 		var formObj = $("form[name='frm']");
 		
+		$(document).on("click","#fileDel", function(){
+			$(this).parent().remove();
+		})
+		
+		addFile();
+		
 		$(".write_btn").on("click", function(){
 			formObj.attr("action", "${pageContext.request.contextPath}/board/write?${_csrf.parameterName}=${_csrf.token}");
 			formObj.attr("method", "post");
@@ -47,8 +53,28 @@
 		formObj.submit();
 	}
 	
+	function addFile(){
+		var fileIndex = 1;
+		$(".fileAdd_btn").on("click", function(){
+			$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+		});
+		$(document).on("click","#fileDelBtn", function(){
+			$(this).parent().remove();			
+		});
+		
+	}
 	
+	var fileNoArry = new Array();
+	var fileNameArry = new Array();
 	
+	function deleteFile(value, name){
+		
+		fileNoArry.push(value);
+		fileNameArry.push(name);
+		$("#fileNoDel").attr("value", fileNoArry);
+		$("#fileNameDel").attr("value", fileNameArry);
+	}
+
 	
 </script>
 </head>
@@ -58,7 +84,8 @@
 		<div>
 			<form name="frm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="ckbox" value="${detail.bno }" />
-			<input type="hidden" id="FILE_NO" name="FILE_NO" value="">
+			<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+			<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 		
 			<table>
 				<tbody>
 				<tr>
@@ -101,8 +128,13 @@
 			<hr>
 				<span>파일 목록</span>
 				<div class="form-group" style="border: 1px solid #dbdbdb;">
-					<c:forEach var="file" items="${file}">
+					<c:forEach var="file" items="${file}" varStatus="var">
+					<div>
+						<input type="hidden" id="FILE_NO" name="FILE_NO" value="${file.FILE_NO }">
+						<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="FILE_NO_${var.index }">
 						<a href="#" onclick="fileDown('${file.FILE_NO}'); return false;">${file.ORG_FILENM}</a>(${file.FILESIZE}kb)<br>
+						<button id="fileDel" onclick="deleteFile('${file.FILE_NO}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+					</div>
 					</c:forEach>
 				</div>
 			<hr>	
@@ -117,6 +149,7 @@
 					</c:otherwise>
 				</c:choose>
 				<button type="button" class="list_btn">목록</button>
+				<button type="button" class="fileAdd_btn">파일추가</button>
 			</div>			
 			<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> -->
 			</form>
