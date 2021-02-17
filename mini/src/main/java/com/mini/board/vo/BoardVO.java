@@ -13,6 +13,12 @@ public class BoardVO {
 	private String keyword;
 	private String searchType;
 	
+	private String org_fileNm;
+	private String mask_fileNm;
+	private String filesize;
+	private String file_extend;
+	private String file_no;
+	
 
 	public int getBno() {
 		return bno;
@@ -58,5 +64,37 @@ public class BoardVO {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+	public String getOrg_fileNm() {
+		return org_fileNm;
+	}
+	public void setOrg_fileNm(String org_fileNm) {
+		this.org_fileNm = org_fileNm;
+	}
+	public String getMask_fileNm() {
+		return mask_fileNm;
+	}
+	public void setMask_fileNm(String mask_fileNm) {
+		this.mask_fileNm = mask_fileNm;
+	}
+	public String getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(String filesize) {
+		this.filesize = filesize;
+	}
+	public String getFile_extend() {
+		return file_extend;
+	}
+	public void setFile_extend(String file_extend) {
+		this.file_extend = file_extend;
+	}
+	public String getFile_no() {
+		return file_no;
+	}
+	public void setFile_no(String file_no) {
+		this.file_no = file_no;
+	}
+	
 
+	
 }

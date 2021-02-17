@@ -48,7 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </select>
 
 <!-- 게시글 등럭 -->
-<insert id="write" parameterType="BoardVO">
+<insert id="write" parameterType="BoardVO"  useGeneratedKeys="true" keyProperty="bno">
+
 	INSERT INTO BOARD(
 		TITLE, WRITER, CONTENT
 	)VALUES (
@@ -74,5 +75,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	DELETE FROM BOARD WHERE bno = #{bno}
 	]]>
 </delete>
+
+<!-- 파일업로드 -->
+ <insert id="insertFile" parameterType="hashMap">
+		INSERT INTO FILEUPLOAD(
+			BNO,
+			ORG_FILENM,
+			MASK_FILENM,
+			FILESIZE
+		)VALUES(
+			#{BNO},
+			#{ORG_FILENM},
+			#{MASK_FILENM},
+			#{FILESIZE}
+		)
+ </insert>
+    
+    
+    <select id="selectFileList" parameterType="int" resultType="hashMap" >
+    	SELECT FILE_NO,
+    		   ORG_FILENM,
+    		   ROUND(FILESIZE/1024, 1) AS FILESIZE
+	   	FROM   FILEUPLOAD
+	   	WHERE  BNO = #{BNO}	
+       
+    </select>
+    
+    <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+    	SELECT 
+    		ORG_FILENM,
+    		MASK_FILENM
+    	FROM FILEUPLOAD
+    	WHERE FILE_NO = #{FILE_NO}
+    	
+    
+    </select>
+    
 
 </mapper>
