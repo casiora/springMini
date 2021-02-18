@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mini.common.vo.PageVO;
 import com.mini.user.service.UserService;
@@ -61,8 +62,9 @@ public class UserController {
 	
 	//로그인
 	@RequestMapping(value = "/login")
-	public String login(HttpServletRequest req, HttpServletResponse res) throws IOException{
-		return "redirect:/";
+	public String login(HttpServletRequest req, HttpServletResponse res) throws IOException{		
+		
+		return "/";
 	}
 	
 	//리스트
@@ -92,8 +94,10 @@ public class UserController {
 	
 	//수정
 	@RequestMapping(value="update", method=RequestMethod.POST)
-	public String update(UserVO userVO) {
+	public String update(UserVO userVO, RedirectAttributes rttr) {
 		userService.update(userVO);
+		
+		rttr.addFlashAttribute("msg", "success");
 		
 		return "redirect:../user/list";
 	}
@@ -102,7 +106,6 @@ public class UserController {
 	@RequestMapping(value="updatEnabled", method=RequestMethod.POST)
 	public String updatEnabled(UserVO userVO) {
 		userService.updatEnabled(userVO.getIDX());
-		System.out.println("컨트롤러 동작");
 		
 		
 		return "redirect:../user/detail?IDX=" + userVO.getIDX();
@@ -110,12 +113,14 @@ public class UserController {
 	
 	//비밀번호 초기화
 	@RequestMapping(value="resetPassword", method=RequestMethod.POST)
-	public String resetPassword(UserVO userVO) {
+	public String resetPassword(UserVO userVO, RedirectAttributes rttr) throws Exception {
 		
 		logger.info("resetPassword");
 		
 		userService.resetPassword(userVO);
 		
+		rttr.addFlashAttribute("msg", "success");
+
 		return "redirect:../user/detail?IDX=" + userVO.getIDX();
 	}
 	

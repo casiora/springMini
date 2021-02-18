@@ -54,14 +54,14 @@ public class UserService implements UserDetailsService {
 		
 	}
 	
-	public boolean signID(UserVO userVo) {
+	public boolean signID(UserVO userVO) {
 		
-		Integer userCount = userMapper.idChk(userVo.getID());		
+		Integer userCount = userMapper.idChk(userVO.getID());		
 		if(userCount > 0) {
 			return false;
 		} else {
-			userVo.setPASSWORD(pwEncoder.encode(userVo.getPassword()));
-			userMapper.signID(userVo);
+			userVO.setPASSWORD(pwEncoder.encode(userVO.getPassword()));
+			userMapper.signID(userVO);
 			return true;			
 		}							
 	}
@@ -106,6 +106,7 @@ public class UserService implements UserDetailsService {
 		userMapper.updatEnabled(idx);
 	}
 	
+	//비밀번호 초기화 >> 자기ID
 	public void resetPassword(UserVO userVO) {
 		
 		userVO.setPASSWORD(pwEncoder.encode(userVO.getID()));		

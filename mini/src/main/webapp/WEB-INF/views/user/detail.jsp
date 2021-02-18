@@ -38,6 +38,11 @@
 		})
 	})
 	
+	var result = '${msg}';
+	if(result == 'success'){
+		alert("처리완료");
+	} 
+	
 </script>
 </head>
 <body>
