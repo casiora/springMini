@@ -1,5 +1,8 @@
 package com.mini.user.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mini.common.vo.PageVO;
 import com.mini.user.mapper.UserMapper;
 import com.mini.user.vo.UserVO;
 
@@ -59,6 +63,31 @@ public class UserService implements UserDetailsService {
 			userMapper.signID(userVo);
 			return true;			
 		}							
+	}
+	
+	
+	//리스트
+	public PageVO<UserVO> list(UserVO UserVO,int currentPage, int pageSize, int blockSize){
+		int listcount = 0; 
+		System.out.println("keyword ====> " + UserVO.getKeyword());
+		System.out.println("searchtype ====> " + UserVO.getSearchType());
+		listcount = userMapper.listCount(UserVO);
+		System.out.println("listcount ====> " + listcount);
+		PageVO<UserVO> paging = new PageVO<UserVO>(listcount, currentPage, pageSize, blockSize);
+		
+		if(listcount>0) {
+			HashMap map = new HashMap<>();
+			
+			map.put("keyword", UserVO.getKeyword());
+			map.put("searchType", UserVO.getSearchType());
+			map.put("startNo", paging.getStartNo());
+			map.put("pageSize", paging.getPageSize());
+			
+			List<UserVO> list = userMapper.list(map);
+			paging.setList(list);
+		}
+		
+		return paging;
 	}
 
 }

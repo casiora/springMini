@@ -74,6 +74,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM USER2
 		WHERE ID= #{ID}	
 	</select>
+	
+<sql id="search">
+	<if test="searchType != null">
+		<if test="keyword !=null">
+		<if test="searchType == 'i'.toString()">WHERE ID LIKE CONCAT('%',#{keyword},'%')</if>
+		<if test="searchType == 'n'.toString()">WHERE NAME LIKE CONCAT('%',#{keyword},'%')</if>		
+	</if>
+	</if>
+</sql>
+
+<!-- 게시글 전체 목록 -->
+<select id ="list" parameterType="hashMap" resultType="UserVO">
+<![CDATA[
+	SELECT R1.* FROM(
+		SELECT IDX, ID, NAME, AUTHORITY, REGDATE
+		FROM USER2
+]]>
+		<include refid="search" />
+		ORDER BY IDX DESC) R1
+		LIMIT #{startNo}, #{pageSize}
+
+</select>
+ 
+<!-- 총 게시글 숫자 카운팅 -->
+<select id="listCount" parameterType="UserVO" resultType="int">
+	SELECT COUNT(IDX)
+	    FROM USER2
+<include refid="search" />
+
+</select>
+
+<!-- 게시글 상세 -->
+<select id="getDetail" parameterType="int" resultType="UserVO">
+	SELECT BNO
+		,TITLE
+		,WRITER
+		,CONTENT
+		,REGDATE
+	FROM BOARD
+	WHERE BNO = #{bno}
+</select>	
 
 	
  </mapper>

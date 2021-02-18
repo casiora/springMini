@@ -1,5 +1,8 @@
 package com.mini.user.mapper;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.mini.common.config.MapperInterface;
 import com.mini.user.vo.UserVO;
 
@@ -18,4 +21,7 @@ public interface UserMapper {
 	public void signID(UserVO userVo);
 	
 	public int idChk(String username);
+	
+	public List<UserVO> list(HashMap map);
+	public int listCount(UserVO userVO);
 }

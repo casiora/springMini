@@ -36,7 +36,7 @@ public class BoardController {
 	 @RequestParam(defaultValue = "1", value = "p", required = false) int currentPage, 
 	 @RequestParam(defaultValue = "10", value = "s", required = false) int pageSize, 
 	 @RequestParam(defaultValue = "5", value = "b", required = false) int blockSize,
-	Model model) throws Exception {
+	 Model model) throws Exception {
 		
 		PageVO<BoardVO> paging = boardService.list(boardVO, currentPage, pageSize, blockSize);
 		model.addAttribute("paging", paging);

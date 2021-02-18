@@ -18,6 +18,10 @@ public class UserVO implements UserDetails {
 	private boolean ENABLED;
 	private String NAME;
 	private Date REGDATE;
+	
+	//검색관련
+	private String keyword;
+	private String searchType;
 
 	public UserVO() {
 			
@@ -119,6 +123,26 @@ public class UserVO implements UserDetails {
 
 	public void setENABLED(boolean eNABLED) {
 		ENABLED = eNABLED;
+	}
+
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
 
 	
