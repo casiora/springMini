@@ -112,6 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,NAME
 		,AUTHORITY
 		,REGDATE
+		,ENABLED
 	FROM USER2
 	WHERE IDX = #{IDX}
 </select>	
@@ -124,6 +125,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AUTHORITY = #{AUTHORITY}
 	WHERE
 		IDX = #{IDX};
+</update>
+
+<!-- 계정 잠금 활성화 -->
+<update id="updatEnabled" parameterType="int">
+
+		UPDATE
+			user2
+		SET
+			ENABLED = true,
+			FAIL_CNT = 0
+		WHERE
+			IDX = #{IDX}
+
+</update>
+
+<!-- 비밀번호 초기화 -->
+<update id="resetPassword" parameterType="UserVO"  >
+
+		UPDATE
+			user2
+		SET
+			PASSWORD = #{PASSWORD}
+		WHERE
+			IDX = #{IDX}
+
 </update>
 	
  </mapper>

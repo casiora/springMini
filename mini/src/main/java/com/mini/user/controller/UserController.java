@@ -97,5 +97,27 @@ public class UserController {
 		
 		return "redirect:../user/list";
 	}
+	
+	//계정잠금상태수정
+	@RequestMapping(value="updatEnabled", method=RequestMethod.POST)
+	public String updatEnabled(UserVO userVO) {
+		userService.updatEnabled(userVO.getIDX());
+		System.out.println("컨트롤러 동작");
+		
+		
+		return "redirect:../user/detail?IDX=" + userVO.getIDX();
+	}
+	
+	//비밀번호 초기화
+	@RequestMapping(value="resetPassword", method=RequestMethod.POST)
+	public String resetPassword(UserVO userVO) {
+		
+		logger.info("resetPassword");
+		
+		userService.resetPassword(userVO);
+		
+		return "redirect:../user/detail?IDX=" + userVO.getIDX();
+	}
+	
 
 }

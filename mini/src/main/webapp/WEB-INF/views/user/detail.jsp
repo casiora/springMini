@@ -24,6 +24,18 @@
 			formObj.attr("method", "post");
 			formObj.submit();
 		})
+		
+		$(".enabled_btn").on("click", function(){
+			formObj.attr("action", "${pageContext.request.contextPath}/user/updatEnabled");
+			formObj.attr("method", "post");
+			formObj.submit();
+		})
+		
+		$(".reset_btn").on("click", function(){
+			formObj.attr("action", "${pageContext.request.contextPath}/user/resetPassword");
+			formObj.attr("method", "post");
+			formObj.submit();
+		})
 	})
 	
 </script>
@@ -34,6 +46,7 @@
 		<div>
 			<form name="frm" method="post">
 			<input type="hidden" name="IDX" value="${detail.IDX }" />	
+			
 			<table>
 				<tbody>				
 				<tr>
@@ -43,20 +56,38 @@
 				</tr>
 				<tr>	
 					<td>
-						<label for="ID">이름<input type="text" id="NAME" name="NAME" value="${detail.NAME }" ></label>
+						<label for="NAME">이름<input type="text" id="NAME" name="NAME" value="${detail.NAME }" ></label>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<label for="writer">권한<input type="text" id="AUTHORITY" name="AUTHORITY" value="${detail.AUTHORITY }" <c:if test="${detail != null and not empty detail}">readonly</c:if>></label>
+						<label for="AUTHORITY">권한
+						<select name="AUTHORITY">
+							<option value="ROLE_USER" <c:out value="${detail.AUTHORITY eq 'ROLE_USER' ? 'selected' : ''}"/>>유 저</option>
+							<option value="ADMIN" <c:out value="${detail.AUTHORITY eq 'ADMIN' ? 'selected' : ''}"/>>관리자</option>
+						</select>
+						<%-- <input type="text" id="AUTHORITY" name="AUTHORITY" value="${detail.AUTHORITY }"> --%>
+						</label>
 					</td>
 				</tr>
 				<tr>	
 					<td>
-						<label for="writer">등록일</label>
+						<label for="REGDATE">등록일</label>
 						<fmt:formatDate value="${detail.REGDATE}" pattern="yyyy-MM-dd"/>					
 					</td>
-				</tr>		
+				</tr>
+				<tr>	
+					<td>
+						<label for="Enabled">계정 활성화</label>
+						<button type="submit" class="enabled_btn">활성화</button>				
+					</td>
+				</tr>	
+				<tr>	
+					<td>
+						<label for="resetPassword">비밀번호 초기화</label>
+						<button type="submit" class="reset_btn">초기화</button>				
+					</td>
+				</tr>			
 			</tbody>			
 			</table>			
 			<div class="buttonWrap fr">

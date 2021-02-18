@@ -92,14 +92,25 @@ public class UserService implements UserDetailsService {
 	}
 	
 	//게시판 상세
-	public UserVO detail(int bno) {
-		UserVO detail = userMapper.detail(bno);
+	public UserVO detail(int idx) {
+		UserVO detail = userMapper.detail(idx);
 		
 		return detail;
 	}
 	
 	public void update(UserVO userVO) {
 		userMapper.update(userVO);
+	}
+	
+	public void updatEnabled(int idx) {
+		userMapper.updatEnabled(idx);
+	}
+	
+	public void resetPassword(UserVO userVO) {
+		
+		userVO.setPASSWORD(pwEncoder.encode(userVO.getID()));		
+		userMapper.resetPassword(userVO);
+									
 	}
 
 }

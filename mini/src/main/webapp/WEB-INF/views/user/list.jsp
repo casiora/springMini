@@ -71,7 +71,10 @@ table, th, td { padding: 5px; }
 							<td><c:out value="${list.IDX}"/></td>
 							<td><a href="/user/detail?IDX=${list.IDX}"><c:out value="${list.ID}" /></a></td>
 							<td><c:out value="${list.NAME}" /></td>
-							<td><c:out value="${list.AUTHORITY}" /></td>
+							<td>
+							<c:if test="${list.AUTHORITY == 'ROLE_USER'}"> <c:out value="유  저" /></c:if>
+							<c:if test="${list.AUTHORITY == 'ADMIN'}"><c:out value="관리자" /></c:if>
+							</td>
 							<td><fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						</c:forEach>																		
@@ -87,8 +90,8 @@ table, th, td { padding: 5px; }
 				    <select name="searchType">
 				   
 				      <option value="null"<c:out value="${paging.list[0].searchType == null ? 'selected' : ''}"/>>----</option>
-				      <option value="i"<c:out value="${paging.list[0].searchType eq '' ? 'selected' : ''}"/>>ID</option>
-				      <option value="n"<c:out value="${paging.list[0].searchType eq 'c' ? 'selected' : ''}"/>>이름</option>				   
+				      <option value="i"<c:out value="${paging.list[0].searchType eq 'i' ? 'selected' : ''}"/>>ID</option>
+				      <option value="n"<c:out value="${paging.list[0].searchType eq 'n' ? 'selected' : ''}"/>>이름</option>				   
 				   </select>	
 				 <input type="text" name="keyword" id="keywordInput" value="${list.keyword}"/>
    				 <button id="searchBtn" type="button" onclick="fn_search();">검색</button>    

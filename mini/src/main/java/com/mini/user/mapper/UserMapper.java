@@ -26,4 +26,6 @@ public interface UserMapper {
 	public int listCount(UserVO userVO);
 	public UserVO detail(int idx);
 	public void update(UserVO userVO);
+	public void updatEnabled(int idx);
+	public void resetPassword(UserVO userVO);
 }
