@@ -84,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</if>
 </sql>
 
-<!-- 게시글 전체 목록 -->
+<!-- 회원관리 전체 목록 -->
 <select id ="list" parameterType="hashMap" resultType="UserVO">
 <![CDATA[
 	SELECT R1.* FROM(
@@ -105,16 +105,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 </select>
 
-<!-- 게시글 상세 -->
-<select id="getDetail" parameterType="int" resultType="UserVO">
-	SELECT BNO
-		,TITLE
-		,WRITER
-		,CONTENT
+<!-- 회원관리 상세 -->
+<select id="detail" parameterType="int" resultType="UserVO">
+	SELECT IDX
+		,ID
+		,NAME
+		,AUTHORITY
 		,REGDATE
-	FROM BOARD
-	WHERE BNO = #{bno}
+	FROM USER2
+	WHERE IDX = #{IDX}
 </select>	
 
+<!-- 게시글 수정 -->
+<update id="update" parameterType="UserVO">
+	UPDATE USER2
+	SET 
+		NAME = #{NAME}, 
+		AUTHORITY = #{AUTHORITY}
+	WHERE
+		IDX = #{IDX};
+</update>
 	
  </mapper>

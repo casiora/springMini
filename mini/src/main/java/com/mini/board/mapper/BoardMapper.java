@@ -13,10 +13,10 @@ public interface BoardMapper {
 	public List<BoardVO> list(HashMap map);
 	public int listCount(BoardVO boardVO);
 	
-	public BoardVO getDetail(int i);
+	public BoardVO getDetail(int bno);
 	public int write(BoardVO boardVO);
 	public void update(BoardVO boardVO);
-	public void deleteBoard(int i);
+	public void deleteBoard(int bno);
 	
 	public void insertFile(Map<String, Object> map);
 	public List<Map<String, Object>> selectFileList(int bno);

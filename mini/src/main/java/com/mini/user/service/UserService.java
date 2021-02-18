@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mini.board.vo.BoardVO;
 import com.mini.common.vo.PageVO;
 import com.mini.user.mapper.UserMapper;
 import com.mini.user.vo.UserVO;
@@ -88,6 +89,17 @@ public class UserService implements UserDetailsService {
 		}
 		
 		return paging;
+	}
+	
+	//게시판 상세
+	public UserVO detail(int bno) {
+		UserVO detail = userMapper.detail(bno);
+		
+		return detail;
+	}
+	
+	public void update(UserVO userVO) {
+		userMapper.update(userVO);
 	}
 
 }

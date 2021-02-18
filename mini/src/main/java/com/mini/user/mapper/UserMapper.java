@@ -24,4 +24,6 @@ public interface UserMapper {
 	
 	public List<UserVO> list(HashMap map);
 	public int listCount(UserVO userVO);
+	public UserVO detail(int idx);
+	public void update(UserVO userVO);
 }

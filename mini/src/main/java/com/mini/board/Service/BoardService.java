@@ -48,8 +48,8 @@ public class BoardService {
 		return paging;
 	}
 	//게시판 상세
-	public BoardVO getDetail(int i) {
-		BoardVO detail = boardMapper.getDetail(i);
+	public BoardVO getDetail(int bno) {
+		BoardVO detail = boardMapper.getDetail(bno);
 		
 		return detail;
 	}

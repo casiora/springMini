@@ -37,10 +37,10 @@ table, th, td { padding: 5px; }
 	$(document).ready(function(){
 		var formObj = $("form[id='frm']");
 		
-		$(".detail_btn").on("click", function(){
+		/* $(".detail_btn").on("click", function(){
 			formObj.attr("action", "${pageContext.request.contextPath}/user/detail");
 			formObj.attr("method", "get");
-		})
+		}) */
 		
 		$(".delete_btn").on("click", function(){
 			formObj.attr("action", "${pageContext.request.contextPath}/user/delete");
@@ -61,15 +61,15 @@ table, th, td { padding: 5px; }
 	                   	<input type="hidden" id ="b" name ="b"/>
 					<table>
 						<tr>
-						<th><input type="checkbox" name="allCheckbox" id="allCheckbox" /></th>
+					
 						<th>번호</th><th>ID</th><th>이름</th><th>권한</th><th>등록일</th>
 						</tr>
 						
 						<c:forEach var="list" items="${paging.list }">
 						<tr>
-							<td><input type="checkbox" name="ckbox" id="ckbox" value="${list.IDX}"/></td>
+						
 							<td><c:out value="${list.IDX}"/></td>
-							<td><a href="/board/detail?bno=${list.IDX}"><c:out value="${list.ID}" /></a></td>
+							<td><a href="/user/detail?IDX=${list.IDX}"><c:out value="${list.ID}" /></a></td>
 							<td><c:out value="${list.NAME}" /></td>
 							<td><c:out value="${list.AUTHORITY}" /></td>
 							<td><fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"/></td>
@@ -93,14 +93,6 @@ table, th, td { padding: 5px; }
 				 <input type="text" name="keyword" id="keywordInput" value="${list.keyword}"/>
    				 <button id="searchBtn" type="button" onclick="fn_search();">검색</button>    
 			</div>		    
-			<table>
-			<tr>
-				<td>
-				<button type="submit" class="detail_btn">글쓰기</button>
-				<button type="submit" class="delete_btn">삭제</button>
-				</td>
-			</tr>	
-			</table>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">				
 			</form>
 			</section>

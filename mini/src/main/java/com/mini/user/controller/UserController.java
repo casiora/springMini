@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mini.common.vo.PageVO;
@@ -77,6 +78,24 @@ public class UserController {
 	
 	return "user/list";
 		
+	}
+	
+	//디테일 페이지
+	@RequestMapping(value="detail", method=RequestMethod.GET)
+	public String detail (UserVO userVO, Model model) throws Exception {
+			
+		UserVO detail = userService.detail(userVO.getIDX());
+		model.addAttribute("detail",detail);
+		
+		return "user/detail";
+	}
+	
+	//수정
+	@RequestMapping(value="update", method=RequestMethod.POST)
+	public String update(UserVO userVO) {
+		userService.update(userVO);
+		
+		return "redirect:../user/list";
 	}
 
 }
