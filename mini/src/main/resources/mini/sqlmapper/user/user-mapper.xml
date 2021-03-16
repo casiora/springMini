@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT
                 *
             FROM
-                user2
+                user
             WHERE
                 ID=#{ loginId}
         ]]>
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 실패카운트 증가 -->
 	<update id="updateFailureCount">
             UPDATE
-                user2
+                user
             SET
                 FAIL_CNT = FAIL_CNT + 1
             WHERE
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT
                 FAIL_CNT
             FROM
-                user2
+                user
             WHERE
                 ID=#{ loginId}
     </select>
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateDisabled">
 		<![CDATA[
 			UPDATE
-				user2
+				user
 			SET
 				ENABLED = false
 			WHERE
@@ -51,15 +51,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 실패카운트 초기화 -->
 	<update id="resetFailureCount">
         UPDATE
-            user2
+            user
         SET
             FAIL_CNT = 0
         WHERE
             ID = #{ loginId}
 	</update>
 	
+	<!--회원가입 -->
 	<insert id="signID" parameterType="UserVO">
-		INSERT INTO USER2(
+		INSERT INTO user(
 		ID, PASSWORD, NAME
 		)VALUES (
 		#{ID}
@@ -71,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--id중복체크 -->
 	<select id="idChk" resultType="int">
 		SELECT COUNT(*)
-		FROM USER2
+		FROM user
 		WHERE ID= #{ID}	
 	</select>
 
