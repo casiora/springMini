@@ -27,10 +27,7 @@ public class BoardService {
 	//리스트
 	public PageVO<BoardVO> list(BoardVO boardVO,int currentPage, int pageSize, int blockSize){
 		int listcount = 0; 
-		System.out.println("keyword ====> " + boardVO.getKeyword());
-		System.out.println("searchtype ====> " + boardVO.getSearchType());
 		listcount = boardMapper.listCount(boardVO);
-		System.out.println("listcount ====> " + listcount);
 		PageVO<BoardVO> paging = new PageVO<BoardVO>(listcount, currentPage, pageSize, blockSize);
 		
 		if(listcount>0) {

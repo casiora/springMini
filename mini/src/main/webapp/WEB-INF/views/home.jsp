@@ -22,6 +22,7 @@
 <P>  The time on the server is ${serverTime}. </P>
 <a href="/map/map">지도</a>
 <a href="/board/list">게시판</a>
+<a href="/user/list">회원관리</a>
 
 <div class="container text-center">
          <sec:authorize access="isAnonymous()">

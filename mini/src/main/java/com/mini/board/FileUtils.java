@@ -17,7 +17,7 @@ import com.mini.board.vo.BoardVO;
 @Component("fileUtils")
 public class FileUtils {
 	
-	private static final String filePath = "D:\\storage\\";
+	private static final String filePath = "D:\\java\\springMini\\file";
 	
 	//단일 파일 업로드
 	public List<Map<String, Object>> parseInsertFileInfo(BoardVO boardVo, MultipartHttpServletRequest mpReq) throws Exception{
