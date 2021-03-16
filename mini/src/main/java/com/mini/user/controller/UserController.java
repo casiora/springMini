@@ -45,7 +45,7 @@ public class UserController {
 		
 		userService.signID(userVO);
 
-		return "redirect:/secu/loginPage";
+		return "redirect:secu/loginPage";
 	}
 	
 	//로그인페이지 호출

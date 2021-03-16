@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT
                 *
             FROM
-                user2
+                user
             WHERE
                 ID=#{ loginId}
         ]]>
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 실패카운트 증가 -->
 	<update id="updateFailureCount">
             UPDATE
-                user2
+                user
             SET
                 FAIL_CNT = FAIL_CNT + 1
             WHERE
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT
                 FAIL_CNT
             FROM
-                user2
+                user
             WHERE
                 ID=#{ loginId}
     </select>
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateDisabled">
 		<![CDATA[
 			UPDATE
-				user2
+				user
 			SET
 				ENABLED = false
 			WHERE
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 실패카운트 초기화 -->
 	<update id="resetFailureCount">
         UPDATE
-            user2
+            user
         SET
             FAIL_CNT = 0
         WHERE
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="signID" parameterType="UserVO">
-		INSERT INTO USER2(
+		INSERT INTO user(
 		ID, PASSWORD, NAME
 		)VALUES (
 		#{ID}
@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--id중복체크 -->
 	<select id="idChk" resultType="int">
 		SELECT COUNT(*)
-		FROM USER2
+		FROM user
 		WHERE ID= #{ID}	
 	</select>
 	
@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <![CDATA[
 	SELECT R1.* FROM(
 		SELECT IDX, ID, NAME, AUTHORITY, REGDATE
-		FROM USER2
+		FROM user
 ]]>
 		<include refid="search" />
 		ORDER BY IDX DESC) R1
@@ -100,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 총 게시글 숫자 카운팅 -->
 <select id="listCount" parameterType="UserVO" resultType="int">
 	SELECT COUNT(IDX)
-	    FROM USER2
+	    FROM user
 <include refid="search" />
 
 </select>
@@ -113,13 +113,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		,AUTHORITY
 		,REGDATE
 		,ENABLED
-	FROM USER2
+	FROM user
 	WHERE IDX = #{IDX}
 </select>	
 
 <!-- 게시글 수정 -->
 <update id="update" parameterType="UserVO">
-	UPDATE USER2
+	UPDATE user
 	SET 
 		NAME = #{NAME}, 
 		AUTHORITY = #{AUTHORITY}
@@ -131,7 +131,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="updatEnabled" parameterType="int">
 
 		UPDATE
-			user2
+			user
 		SET
 			ENABLED = true,
 			FAIL_CNT = 0
@@ -144,7 +144,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="resetPassword" parameterType="UserVO"  >
 
 		UPDATE
-			user2
+			user
 		SET
 			PASSWORD = #{PASSWORD}
 		WHERE
