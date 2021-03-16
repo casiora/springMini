@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT
                 *
             FROM
-                user
+                user2
             WHERE
                 ID=#{ loginId}
         ]]>
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 실패카운트 증가 -->
 	<update id="updateFailureCount">
             UPDATE
-                user
+                user2
             SET
                 FAIL_CNT = FAIL_CNT + 1
             WHERE
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             SELECT
                 FAIL_CNT
             FROM
-                user
+                user2
             WHERE
                 ID=#{ loginId}
     </select>
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateDisabled">
 		<![CDATA[
 			UPDATE
-				user
+				user2
 			SET
 				ENABLED = false
 			WHERE
@@ -51,16 +51,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 실패카운트 초기화 -->
 	<update id="resetFailureCount">
         UPDATE
-            user
+            user2
         SET
             FAIL_CNT = 0
         WHERE
             ID = #{ loginId}
 	</update>
 	
-	<!--회원가입 -->
 	<insert id="signID" parameterType="UserVO">
-		INSERT INTO user(
+		INSERT INTO USER2(
 		ID, PASSWORD, NAME
 		)VALUES (
 		#{ID}
@@ -72,9 +71,85 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--id중복체크 -->
 	<select id="idChk" resultType="int">
 		SELECT COUNT(*)
-		FROM user
+		FROM USER2
 		WHERE ID= #{ID}	
 	</select>
+	
+<sql id="search">
+	<if test="searchType != null">
+		<if test="keyword !=null">
+		<if test="searchType == 'i'.toString()">WHERE ID LIKE CONCAT('%',#{keyword},'%')</if>
+		<if test="searchType == 'n'.toString()">WHERE NAME LIKE CONCAT('%',#{keyword},'%')</if>		
+	</if>
+	</if>
+</sql>
 
+<!-- 회원관리 전체 목록 -->
+<select id ="list" parameterType="hashMap" resultType="UserVO">
+<![CDATA[
+	SELECT R1.* FROM(
+		SELECT IDX, ID, NAME, AUTHORITY, REGDATE
+		FROM USER2
+]]>
+		<include refid="search" />
+		ORDER BY IDX DESC) R1
+		LIMIT #{startNo}, #{pageSize}
+
+</select>
+ 
+<!-- 총 게시글 숫자 카운팅 -->
+<select id="listCount" parameterType="UserVO" resultType="int">
+	SELECT COUNT(IDX)
+	    FROM USER2
+<include refid="search" />
+
+</select>
+
+<!-- 회원관리 상세 -->
+<select id="detail" parameterType="int" resultType="UserVO">
+	SELECT IDX
+		,ID
+		,NAME
+		,AUTHORITY
+		,REGDATE
+		,ENABLED
+	FROM USER2
+	WHERE IDX = #{IDX}
+</select>	
+
+<!-- 게시글 수정 -->
+<update id="update" parameterType="UserVO">
+	UPDATE USER2
+	SET 
+		NAME = #{NAME}, 
+		AUTHORITY = #{AUTHORITY}
+	WHERE
+		IDX = #{IDX};
+</update>
+
+<!-- 계정 잠금 활성화 -->
+<update id="updatEnabled" parameterType="int">
+
+		UPDATE
+			user2
+		SET
+			ENABLED = true,
+			FAIL_CNT = 0
+		WHERE
+			IDX = #{IDX}
+
+</update>
+
+<!-- 비밀번호 초기화 -->
+<update id="resetPassword" parameterType="UserVO"  >
+
+		UPDATE
+			user2
+		SET
+			PASSWORD = #{PASSWORD}
+		WHERE
+			IDX = #{IDX}
+
+</update>
 	
  </mapper>
