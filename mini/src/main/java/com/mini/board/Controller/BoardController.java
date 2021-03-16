@@ -86,7 +86,7 @@ public class BoardController {
 		String mask_filenm = (String) resultMap.get("MASK_FILENM");
 		String org_filenm = (String) resultMap.get("ORG_FILENM");
 		
-		byte fileByte[] = FileUtils.readFileToByteArray(new File("D:\\storage\\"+mask_filenm));
+		byte fileByte[] = FileUtils.readFileToByteArray(new File("D:\\java\\springMini\\file"+mask_filenm));
 		
 		res.setContentType("application/octet-stream");
 		res.setContentLength(fileByte.length);
